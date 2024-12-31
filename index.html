@@ -1,18 +1,35 @@
-<h1>哈咯</h1>
-<h3>本站使用的GitHub-Pages搭建的网站</h3>
-<h5>采用本站的CDN双IP加速</h5>
-<p>先在GitHub自己的仓库中点击右上角三个点，再点击设置进入，下滑找到Pages再下拉找到自定义域名填入自己的域名，这时候去自己购买域名的托管商增加解析[及CNAME]，过几分钟即可访问 ⚠️:如果Pages长时间显示正在检查DNS，这个可以不用管，因为套了一层解析所以GitHub检测不到</p>
-<li><h2>CDN地址是：gitpages--cdn.krtin.cn</h2></li>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF - 8">
+  <title>Kerry Media. Cloud</title>
+</head>
+
+<body>
+  <!-- 显示时间 -->
   <div id="time"></div>
-  <script>
-    function showTime() {
-      const now = new Date();
-      const hours = now.getHours();
-      const minutes = now.getMinutes();
-      const seconds = now.getSeconds();
-      const timeString = `${hours}:${minutes}:${seconds}`;
-      document.getElementById('time').innerHTML = timeString;
-    }
-    setInterval(showTime, 1000);
-    showTime();
-  </script>
+  <!-- 友情链接 -->
+  <div>
+    <h2>友情链接：</h2>
+    <ul>
+      <li><a href="www.hucl.link">ByUsi</a></li>
+      <li><a href="www.zzcom.top">仔仔的博客</a></li>
+    </ul>
+  </div>
+  <!-- 站点服务（这里是示例欢迎文字） -->
+  <div>
+    <h2>站点其他服务：</h2>
+    <li><a href="g.nizp.cn">GeminiAI</a></li>
+    <li><a href="ghproxy.nizp.cn">GitHubRawFile加速</li>
+    <li><h4>Github Pages加速CDN↓</h4></li>
+    <p>gitpages--cdn.krtin.cn</p>
+    <p>⚠️</p>
+    <p>此CDN服务只提供在GitHub仓库中的Pages自定义域名中使用，在Pages设置好域名后在域名托管商增加CNAME解析，但是会无法开启Pages的HTTPS支持</p>
+    <p>欢迎来到我们的网站，希望你在这里度过愉快的时光！</p>
+  </div>
+
+  <script src="time.js"></script>
+</body>
+
+</html>
