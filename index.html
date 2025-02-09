@@ -1,64 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="zh-CN">
 <head>
-    <meta charset="utf-8">
-    <title>Earth</title>
-    <style>
-        body {
-            margin: 0;
-            touch-action: none;
-        }
-
-        #time {
-            position: absolute;
-            top: 10px;
-            width: 100%;
-            text-align: center;
-            z-index: 100;
-            display: block;
-            color: white;
-            font-size: x-large;
-        }
-
-        #control {
-            position: absolute;
-            bottom: 10px;
-            width: 100%;
-            text-align: center;
-            z-index: 100;
-            display: block;
-        }
-
-        .desc {
-            text-align: center;
-            color: white;
-            font-size: medium;
-            margin-right: 10px;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>获取IP和运营商信息</title>
 </head>
-
 <body>
-    <div id="time">
-        <span id="date">0000-00-00</span>
-        <span id="clock">00:00:00</span>
-        <span id="timezone">GMT+0000</span>
-    </div>
-    <div id="control">
-        <span class="desc">WASD/拖动: 移动相机</span>
-        <span class="desc">Z & C: 相机距离</span>
-        <span class="desc">R: 重置相机</span>
-        <span class="desc">Q & E: 倾斜</span>
-        <span class="desc">F: 赤道对齐</span>
-        <span class="desc">V: 黄道对齐</span>
-        <span class="desc">T: 午时线</span>
-        <span class="desc">G: 地轴</span>
-    </div>
+    <h1>获取访问者IP地址和运营商信息</h1>
 
-    <script type="module" src="/main.js"></script>
-    <script type="module" src="/time.js"></script>
+    <?php
+    // 检查是否提交了表单
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // 获取访问者的IP地址
+        function getClientIP() {
+            if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+                $ip = $_SERVER['HTTP_CLIENT_IP'];
+            } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+                $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+            } else {
+                $ip = $_SERVER['REMOTE_ADDR'];
+            }
+            return $ip;
+        }
 
+        // 获取IP地址的运营商信息
+        function getISP($ip) {
+            $url = "http://ip-api.com/json/{$ip}";
+            $response = file_get_contents($url);
+            $data = json_decode($response, true);
+            return $data['isp'] ?? '未知';
+        }
+
+        $ip = getClientIP();
+        $isp = getISP($ip);
+
+        // 输出结果
+        echo "<h2>您的IP地址是：{$ip}</h2>";
+        echo "<h2>您的运营商是：{$isp}</h2>";
+    }
+    ?>
+
+    <form method="post">
+        <input type="submit" value="获取信息">
+    </form>
 </body>
-
-</html>
+</html>o
